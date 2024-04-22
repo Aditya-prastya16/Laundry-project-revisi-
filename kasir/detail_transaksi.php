@@ -154,7 +154,7 @@
               </div>
 
               <div class="mx-[4%]">
-              <a href="../delete/delete_detail_transaksi.php?id_detail_transaksi=<?= @$rowDetailProduct['id_detail_transaksi'] ?>&id_transaksi=<?= $id_transaksi ?>">x</a>              
+              <a href="../delete/delete_detail_transaksi_kasir.php?id_detail_transaksi=<?= @$rowDetailProduct['id_detail_transaksi'] ?>&id_transaksi=<?= $id_transaksi ?>">x</a>              
                 </div>
 
             </div>   

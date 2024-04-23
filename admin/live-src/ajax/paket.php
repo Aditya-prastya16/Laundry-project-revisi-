@@ -11,20 +11,28 @@ if(!@$_SESSION['username']){
 }else if(@$_SESSION['role']=='owner'){
     echo "<script>alert('anda owner');window.location.href='../auth/login.php';</script>";
 }
-$paket = mysqli_query($koneksi, "SELECT tb_paket.id_paket as id_paket, tb_outlet.id_outlet as id_outlet ,nama,jenis,nama_paket,harga FROM tb_paket INNER JOIN tb_outlet ON tb_paket.id_outlet = tb_outlet.id_outlet ORDER BY tb_outlet.id_outlet");
-$no = 1;
+   // Mendapatkan id_outlet dari sesi
+   $id_outlet = $_SESSION['id_outlet'];
+
+   // Mengambil paket yang terkait dengan id_outlet dari sesi
+   $paket = mysqli_query($koneksi, "SELECT tb_paket.id_paket as id_paket, tb_outlet.id_outlet as id_outlet ,nama,jenis,nama_paket,harga FROM tb_paket INNER JOIN tb_outlet ON tb_paket.id_outlet = tb_outlet.id_outlet WHERE tb_outlet.id_outlet = $id_outlet ORDER BY tb_outlet.id_outlet LIMIT ".$limitStart.", ".$limit);
+   $nomor = 1;
+
 
 $keyword = $_GET["keyword"];
 
 
-$query = "SELECT tb_paket.id_paket as id_paket, tb_outlet.id_outlet as id_outlet ,nama,jenis,nama_paket,harga FROM tb_paket INNER JOIN tb_outlet ON tb_paket.id_outlet = tb_outlet.id_outlet
-          WHERE
-          id_paket LIKE '%$keyword%' OR
-          nama LIKE '%$keyword%' OR
-          jenis LIKE '%$keyword%' OR
-          nama_paket LIKE '%$keyword%' OR
-          harga LIKE '%$keyword%'
-   ";
+$query = mysqli_query($koneksi, "SELECT tb_paket.id_paket as id_paket, tb_outlet.id_outlet as id_outlet ,nama,jenis,nama_paket,harga 
+    FROM tb_paket 
+    INNER JOIN tb_outlet ON tb_paket.id_outlet = tb_outlet.id_outlet 
+    WHERE tb_outlet.id_outlet = $id_outlet 
+    AND (id_paket LIKE '%$keyword%' 
+        OR nama LIKE '%$keyword%' 
+        OR jenis LIKE '%$keyword%' 
+        OR nama_paket LIKE '%$keyword%' 
+        OR harga LIKE '%$keyword%')
+    ORDER BY tb_outlet.id_outlet 
+    LIMIT ".$limitStart.", ".$limit);
 $paket = query($query);
 ?>
       <div id="container">
@@ -45,7 +53,7 @@ $paket = query($query);
             
         ?>
                 <tr>
-                    <th class="border-t border-gray-300 px-4 py-2"><?= $no++ ?></th>
+                    <th class="border-t border-gray-300 px-4 py-2"><?= $nomor++ ?></th>
                     <th class="border-t border-gray-300 px-4 py-2"><?= $row['nama'] ?></th>
                     <th class="border-t border-gray-300 px-4 py-2"><?= $row['jenis'] ?></th>
                     <th class="border-t border-gray-300 px-4 py-2"><?= $row['nama_paket'] ?></th>

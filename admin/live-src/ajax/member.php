@@ -12,7 +12,7 @@ if(!@$_SESSION['username']){
     echo "<script>alert('anda owner');window.location.href='../auth/login.php';</script>";
 }
 $member = mysqli_query($koneksi, "SELECT * FROM tb_member ORDER BY id_member ASC");
-
+$nomor = 1;
 $keyword = $_GET["keyword"];
 
 
@@ -40,7 +40,7 @@ $member = query($query);
             <table class="container table-auto border-collapse border-b border-gray-300">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">Id member</th>
+                        <th class="px-4 py-2">No</th>
                         <th class="px-4 py-2">Nama</th>
                         <th class="px-4 py-2">Alamat</th>
                         <th class="px-4 py-2">Jenis Kelamin</th>
@@ -56,7 +56,7 @@ $member = query($query);
                     <tr>
 
 
-                        <th class="border-t border-gray-300 px-4 py-2"><?=$row['id_member']?></th>
+                        <th class="border-t border-gray-300 px-4 py-2"><?=$nomor++ ?></th>
                         <th class="border-t border-gray-300 px-4 py-2"><?=$row['nama']?></th>
                         <th class="border-t border-gray-300 px-4 py-2"><?=$row['alamat']?></th>
                         <th class="border-t border-gray-300 px-4 py-2"><?=$row['jenis_kelamin']?></th>
@@ -68,9 +68,10 @@ $member = query($query);
                                 </button>
                            </a>
                             <?php
-  $id = $row['id_member'];
-  $hide_delete = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_detail_transaksi WHERE id_detail_transaksi='$id' "));
-  if ($hide_delete[0] == '0') {
+                       $id = $row['id_member'];
+                       $hide_delete = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_member INNER JOIN tb_transaksi ON tb_member.id_member=tb_transaksi.id_member WHERE tb_member.id_member='$id'"));
+
+                       if ($hide_delete[0] == '0') {
                         ?>
 <a href="../delete/delete_member_admin.php?id_member=<?= $row['id_member'] ?>" onclick="return confirm('Anda yakin ingin menghapus Data ini?')">
     <button class="bg-[#E61700] hover:bg-red-700 text-white font-bold py-3 px-3 rounded-lg ml-2" type="button">

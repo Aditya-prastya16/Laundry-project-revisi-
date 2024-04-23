@@ -9,7 +9,7 @@
 ?>
 <?= template_header('Home') ?>
 <div class="flex justify-center h-fit mt-[2%]">
-    <div class="bg-white rounded-lg overflow-hidden shadow-md w-[50%]">
+    <div class="bg-[#F6FAFF] rounded-lg overflow-hidden shadow-md w-[50%]">
     <!-- card1 -->
         <div class="bg-[#F6FAFF] shadow-inner p-6">
             <h2 class="text-2xl font-bold mb-4">Detail Transaksi</h2>
@@ -103,7 +103,7 @@
         </div>
     </div>
 
-        <div class="ml-8 bg-white rounded-lg overflow-hidden shadow-lg w-[40%] mb-[5%]">
+        <div class="ml-8 bg-[#F6FAFF] rounded-lg overflow-hidden shadow-lg w-[40%] mb-[5%]">
         <!-- card2 -->
         <div class="bg-[#F6FAFF] shadow-inner p-6">
             <h2 class="text-2xl font-bold mb-4">Detail Paket</h2>
@@ -198,7 +198,7 @@
                 </div>
             </div>
 
-<div class="flex flex-row space-x-2 my-[4%]">
+<div class="flex flex-row space-x-4 my-[4%] mx-[4%]">
                 <a href="transaksi.php">
                 <button class="bg-[#E61700] hover:bg-red-900 text-white font-bold py-2 px-4 rounded-lg">
                     Bayar Nanti

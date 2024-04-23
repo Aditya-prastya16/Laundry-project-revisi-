@@ -100,7 +100,7 @@
                            </a>
                             <?php
   $id = $row['id_member'];
-  $hide_delete = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_detail_transaksi WHERE id_detail_transaksi='$id' "));
+  $hide_delete = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_detail_transaksi WHERE id_transaksi='$id' "));
   if ($hide_delete[0] == '0') {
                         ?>
                             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="bg-[#E61700] hover:bg-red-700 text-white font-bold py-3 px-3 rounded-lg ml-2" type="button">

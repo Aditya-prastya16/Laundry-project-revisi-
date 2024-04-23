@@ -95,11 +95,16 @@
                                     <img src="../img/edit.png" alt="Edit" class="w-4 h-4">
                                 </button>
                            </a> 
+
                            <?php
-  $id = $row['id_outlet'];
-  $hide_delete = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_detail_transaksi WHERE id_detail_transaksi='$id' "));
-  if ($hide_delete[0] == '0') {
+   $id = $row['id_outlet'];
+   $hide_delete1 = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_outlet INNER JOIN tb_user ON tb_outlet.id_outlet=tb_user.id_outlet WHERE tb_outlet.id_outlet='$id'"));
+   $hide_delete2 = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_outlet INNER JOIN tb_paket ON tb_outlet.id_outlet=tb_paket.id_outlet WHERE tb_outlet.id_outlet='$id'"));
+   $hide_delete3 = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_outlet INNER JOIN tb_transaksi ON tb_outlet.id_outlet=tb_transaksi.id_outlet WHERE tb_outlet.id_outlet='$id'"));
+
+   if ($hide_delete1[0] == '0' && $hide_delete2[0] == '0' && $hide_delete3[0] == '0') {
                         ?>
+
                             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="bg-[#E61700] hover:bg-red-700 text-white font-bold py-3 px-3 rounded-lg ml-2" type="button">
                             <img src="../img/delete.png" alt="Delete" class="w-4 h-4">
                             </button>

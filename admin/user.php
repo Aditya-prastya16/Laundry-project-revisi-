@@ -98,9 +98,24 @@
                             </button>
                         </a> 
                         <?php
-  $id = $row['id_user'];
-  $hide_delete = mysqli_fetch_row(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_detail_transaksi WHERE id_detail_transaksi='$id' "));
-  if ($hide_delete[0] == '0') {
+                        $id = $row['id_user'];
+                        $hide_delete1 = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM tb_user INNER JOIN tb_transaksi USING(id_user) WHERE id_user = $id");
+                        $cek1 = mysqli_fetch_row($hide_delete1)[0];
+
+                        $id = $row['id_user']; // Assuming $data['id_user'] contains the user's ID
+
+                        // Check if there are related records in tb_detail_transaksi
+                        $hide_delete_query = "SELECT COUNT(*) as total FROM tb_detail_transaksi WHERE id_transaksi IN (SELECT id_transaksi FROM tb_transaksi WHERE id_user = '$id')";
+                        $hide_delete_result = mysqli_query($koneksi, $hide_delete_query);
+                        $hide_delete_row = mysqli_fetch_assoc($hide_delete_result);
+                        $total_related_records = $hide_delete_row['total'];
+
+                        // Hide delete button if there are related records
+                        $hide_delete = ($total_related_records > 0) ? true : false;
+                        ?>
+                        <?php
+                        // Check if delete button should be hidden
+                        if (!$hide_delete && $_SESSION['username'] != $data['username']) {
                         ?>
                             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="bg-[#E61700] hover:bg-red-700 text-white font-bold py-3 px-3 rounded-lg ml-2" type="button">
                             <img src="../img/delete.png" alt="Delete" class="w-4 h-4">

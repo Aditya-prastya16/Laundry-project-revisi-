@@ -69,20 +69,23 @@ require "../koneksi.php";
 
             <?php
 // Assuming $koneksi is your database connection
-$sql = "SELECT id_outlet, COUNT(*) AS total_packages
-        FROM tb_paket
-        GROUP BY id_outlet
-        ORDER BY total_packages DESC";
+$sql = "SELECT p.id_paket, p.nama_paket, COUNT(*) AS total_transactions
+        FROM tb_detail_transaksi dt
+        INNER JOIN tb_paket p ON dt.id_paket = p.id_paket
+        GROUP BY p.id_paket
+        ORDER BY total_transactions DESC"; // Mengurutkan data berdasarkan total transaksi secara descending
 $result = mysqli_query($koneksi, $sql);
 
 $labels = [];
 $data = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-    $labels[] = "Outlet " . $row['id_outlet'];
-    $data[] = $row['total_packages'];
+    $labels[] = $row['nama_paket'];
+    $data[] = $row['total_transactions'];
 }
 ?>
+
+
 
             
                 <!-- Card 1 -->

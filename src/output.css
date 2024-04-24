@@ -1421,14 +1421,6 @@ input:checked + .toggle-bg {
   margin-top: 8%;
 }
 
-.mr-\[2\%\] {
-  margin-right: 2%;
-}
-
-.ml-\[2\%\] {
-  margin-left: 2%;
-}
-
 .block {
   display: block;
 }

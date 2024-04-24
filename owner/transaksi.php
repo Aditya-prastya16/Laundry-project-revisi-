@@ -428,6 +428,8 @@ $sql_rm = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
 while ($data = mysqli_fetch_array($sql_rm)) {
     $querymember = mysqli_query($koneksi, "SELECT * from tb_member WHERE id_member = '" . $data['id_member'] . "'");
     $hasilmember = mysqli_fetch_array($querymember);
+    $queryoutlet = mysqli_query($koneksi, "SELECT * from tb_outlet WHERE id_outlet = '" . $data['id_outlet'] . "'");
+    $hasiloutlet = mysqli_fetch_array($queryoutlet);
     if ($data['status'] == "baru") {
                         ?>
                         <tr class="bg-[#74A9F0]">
@@ -438,6 +440,9 @@ while ($data = mysqli_fetch_array($sql_rm)) {
                                 Jam :
                                 <?= substr($data['batas_waktu'], -8, 5) ?>
                                 <br><br>
+                                nama outlet :
+                            <?= $hasiloutlet['nama'] ?>
+                            <br><br>
                                 <b>
                                     <?= $data['kode_invoice'] ?>
                                 </b>
@@ -669,6 +674,7 @@ while ($data = mysqli_fetch_array($sql_rm)) {
                                 Jam :
                                 <?= substr($data['batas_waktu'], -8, 5) ?>
                                 <br><br>
+
                                 <b>
                                     <?= $data['kode_invoice'] ?>
                                 </b>
